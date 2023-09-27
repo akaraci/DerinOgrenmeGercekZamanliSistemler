@@ -19,6 +19,7 @@ Created on Wed Sep 27 09:07:40 2023
 #%%
 import cv2
 import dlib
+import numpy as np
 img = cv2.imread("foto.jpg")
 # Resimi grayscale dönüştürür.
 gray = cv2.cvtColor(src=img, code=cv2.COLOR_BGR2GRAY)
@@ -44,13 +45,15 @@ for face in faces:
     landmarks = predictor(image=gray, box=face)
     x = landmarks.part(27).x
     y = landmarks.part(27).y
-
+    cropped_image = img[y1:y2, x1:x2]
+    cv2.imshow(winname="Face",mat=cropped_image)
     cv2.circle(img=img, center=(x,y), radius=5, color=(0,255,0),thickness=-1)
     #Bir dikdörtgen çiziyoruz
     cv2.rectangle(img=img, pt1=(x1,y1), pt2=(x2,y2), color=(0,255,0), thickness=4)
 
 
 #resimi göster
+im1=cv2.imshow(winname="CropFace",mat=cropped_image)
 cv2.imshow(winname="Face",mat=img)
 
 cv2.waitKey(delay=0) #bir tuşa basıncaya kadar bekle
