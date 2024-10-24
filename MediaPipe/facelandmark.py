@@ -58,19 +58,16 @@ def plot_face_blendshapes_bar_graph(face_blendshapes):
   face_blendshapes_scores = [face_blendshapes_category.score for face_blendshapes_category in face_blendshapes]
   # The blendshapes are ordered in decreasing score value.
   face_blendshapes_ranks= range(len(face_blendshapes_names))
-  fig, ax = plt.subplots(figsize=(12, 12))
-  bar = ax.barh(face_blendshapes_ranks, face_blendshapes_scores, label=[str(x) for x in face_blendshapes_ranks])
-  #ax.set_yticks(list(face_blendshapes_ranks),list(face_blendshapes_names))
-  #♣ax.invert_yaxis()
 
-  # Label each bar with values
-  for score, patch in zip(face_blendshapes_scores, bar.patches):
-    plt.text(patch.get_x() + patch.get_width(), patch.get_y(), f"{score:.4f}", va="top")
-
-  ax.set_xlabel('Score')
-  ax.set_title("Face Blendshapes")
-  plt.tight_layout()
+  xpoints = face_blendshapes_names
+  ypoints = face_blendshapes_scores
+    
+  plt.figure(figsize=(8,6))  # Grafiğin boyutlarını ayarla
+  plt.yticks(fontsize=7)  # Yazı boyutunu küçült
+  plt.barh(xpoints, ypoints)
+  plt.tight_layout()  # Grafiği etiketlere göre sıkıştır
   plt.show()
+
   
 #%%
 import cv2
